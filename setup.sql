@@ -2,6 +2,15 @@
 
 -- FLUSH PRIVILEGES;
 
+-- Ensure the user exists before altering
+SELECT COUNT(*) INTO @user_exists FROM mysql.user WHERE user = 'root' AND host = '%';
+SET @alter_stmt = IF(@user_exists > 0, 'ALTER USER ''root''@''%'' IDENTIFIED WITH mysql_native_password BY ''my-secret-pw'';', 'SELECT 1;');
+PREPARE stmt FROM @alter_stmt;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+FLUSH PRIVILEGES;
+
 -- create the databases
 CREATE DATABASE IF NOT EXISTS test;
 
