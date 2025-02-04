@@ -5,11 +5,20 @@ import cors from "cors"
 const app = express();
 
 const db = mysql.createConnection({
-    host: "localhost",
+    host: "db",
+    port: 3306,
     user: "root",
-    password: "",
+    password: "my-secret-pw",
     database: "test"
 })
+
+// db.connect((err) => {
+//   if (err) {
+//     console.error('Error connecting to MySQL:', err);
+//     return;
+//   }
+//   console.log('Connected to MySQL!');
+// });
 
 app.use(express.json())//return json data using the api server postman
 
@@ -21,6 +30,7 @@ app.get("/", (req,res)=>{
 
 //postman -> get method  http://localhost:8800/books
 app.get("/books", (req,res)=>{
+    console.log("GET /books");
     const query = "SELECT * FROM books"
     db.query(query, (err,data)=>{
           if(err) return res.json(err)
@@ -39,6 +49,7 @@ app.get("/books", (req,res)=>{
 // }
 
   app.post("/books", (req,res)=>{
+    console.log("POST /books");
     const query = "INSERT INTO books (`title`, `description`, `price`, `cover`) VALUES (?)"
     const values = [
        req.body.title,
@@ -48,12 +59,16 @@ app.get("/books", (req,res)=>{
     ]
 
     db.query(query, [values], (err,data)=>{
-        if(err) return res.json(err)
+        if(err) {
+          console.log(err)
+          return res.json(err)
+        }
         return res.json("Book has been created successfully!!!")
     })
   })
 
   app.delete("/books/:id", (req,res)=>{
+      console.log("DELETE /books");
       const bookID = req.params.id
       const query = "DELETE FROM books WHERE id = ?"
 
@@ -64,6 +79,7 @@ app.get("/books", (req,res)=>{
   })
 
   app.put("/books/:id", (req,res)=>{
+    console.log("PUT /books");
     const bookID = req.params.id
     const query = "UPDATE books SET `title`= ?, `description`= ?, `price`= ?, `cover`= ? WHERE id = ?";
 

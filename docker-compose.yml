@@ -1,13 +1,20 @@
 version: '3.4'
 
 services:
-  frontend:
-    image: frontend
-    build:
-      context: frontend
-      dockerfile: ./Dockerfile
+  db:
+    image: mysql:8.0
+    # restart: always
+    command: --init-file /docker-entrypoint-initdb.d/setup.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+      MYSQL_DATABASE: test
     ports:
-      - 3000:5173
+      - "3306:3306"
+    networks:
+      - sameNetworkAsMysql # Connects the service to the 'sameNetworkAsMysql' network
+    volumes:
+      - ./setup.sql:/docker-entrypoint-initdb.d/setup.sql
+      - ./data:/var/lib/mysql
   backend:
     image: backend
     build:
@@ -15,15 +22,21 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 8800:8800
-  db:
-    image: mysql:latest
-    # restart: always
-    command: --init-file /data/application/setup.sql
-    environment:
-      MYSQL_ROOT_PASSWORD: my-secret-pw
-      MYSQL_DATABASE: test
+    networks:
+      - sameNetworkAsMysql # Connects the service to the 'sameNetworkAsMysql' network
+    depends_on: 
+      - db
+  frontend:
+    image: frontend
+    build:
+      context: frontend
+      dockerfile: ./Dockerfile
     ports:
-      - "3306:3306"
-    volumes:
-      - ./setup.sql:/data/application/setup.sql
-      - ./data:/var/lib/mysql
+      - 3000:5173
+    networks:
+      - sameNetworkAsMysql # Connects the service to the 'sameNetworkAsMysql' network
+    depends_on:
+      - backend
+networks:
+  sameNetworkAsMysql: # Defines the 'sameNetworkAsMysql' network
+    driver: bridge # Specifies the network driver as 'bridge'
