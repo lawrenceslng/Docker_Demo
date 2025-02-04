@@ -1,3 +1,13 @@
+# Docker Demo
+
+Run the following commands:
+
+1. `docker compose up`
+2. Go into mysql container with `docker exec -it crud-react-node-mysql-go-db-1 mysql -u root -p` and input the password `my-secret-pw`
+3. Run `SELECT user, host, plugin FROM mysql.user WHERE user = 'root';` and verify that the output shows `caching_sha2_password` under plugin
+4. Run commands `ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'my-secret-pw'; FLUSH PRIVILEGES;`
+5. Go to `localhost:3000` and use the app
+
 # Lama Book Shop CRUD Web Application
 
 <h4><i>Enjoy your favorite books, movies, and animated characters!</i></h4>

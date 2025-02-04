@@ -6,6 +6,7 @@ services:
     # restart: always
     command: --init-file /docker-entrypoint-initdb.d/setup.sql
     environment:
+      MYSQL_PASSWORD: my-secret-pw
       MYSQL_ROOT_PASSWORD: my-secret-pw
       MYSQL_DATABASE: test
     ports:

@@ -1,4 +1,4 @@
--- ALTER USER 'root'@'%' IDENTIFIED WITH caching_sha2_password BY 'my-secret-pw';
+-- ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'my-secret-pw';
 
 -- FLUSH PRIVILEGES;
 
