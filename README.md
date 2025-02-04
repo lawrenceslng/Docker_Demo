@@ -1,51 +1,7 @@
-# Docker Demo
+# DevOps Assignment #4: Containerize It
 
-Run the following commands:
+To bring up this application using docker compose, simply clone the repository, go to the root directory, and run `docker compose up`.
 
-1. `docker compose up`
-2. Go into mysql container with `docker exec -it crud-react-node-mysql-go-db-1 mysql -u root -p` and input the password `my-secret-pw`
-3. Run `SELECT user, host, plugin FROM mysql.user WHERE user = 'root';` and verify that the output shows `caching_sha2_password` under plugin
-4. Run commands `ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'my-secret-pw'; FLUSH PRIVILEGES;`
-5. Go to `localhost:3000` and use the app
+The 3 docker containers will be created. Wait until the db is fully initialized, then navigate to `localhost:3000` and use the app.
 
-# Lama Book Shop CRUD Web Application
-
-<h4><i>Enjoy your favorite books, movies, and animated characters!</i></h4>
-
-
-
-![image](https://github.com/Norbert305/crud-react-node-mySQL-go/assets/83515541/175be89d-5555-4b38-b479-42e06aa04f8c)
-
-
-# Technologies
-<p>React.js, Node.js, Express, MySQL</p>
-
-# Video Demo
-
-https://vimeo.com/866824528?share=copy
-
-# Backend 
-<p>cd backend</p>
-<p>npm install</p>
-<p>npm start</p>
-
-# Frontend 
-<p>cd frontend</p>
-<p>npm install</p>
-<p>npm run dev</p>
-
-# Need a mySQL DataBase
-<p>I used XAMPP</p> 
-<p>DataBase named test</p>
-<p>Table named books</p>
-http://localhost/dashboard/
-
-# Table Values
-<p>id -> primary key - not null </p>
-<p>title -> not null</p>
-<p>description -> not null</p>
-<p>cover -> null</p>
-<p>price -> not null</p>
-
-
-![image](https://github.com/Norbert305/crud-react-node-mySQL-go/assets/83515541/4d825d2e-16a4-4a95-96b1-847e958d1a0f)
+The code for the application is from the [repository linked here](https://github.com/Norbert305/crud-react-node-mySQL-go).

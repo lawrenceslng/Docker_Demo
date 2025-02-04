@@ -12,6 +12,8 @@ EXPOSE 3000
 
 CMD [ "npm", "run", "dev" ]
 
+## BELOW IS FOR PRODUCTION
+
 # FROM node:18-alpine
 
 # WORKDIR /app
