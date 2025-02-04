@@ -10,4 +10,4 @@ CREATE TABLE books (
     cover varchar(255),
     price int NOT NULL,
     PRIMARY KEY (ID)
-)
+);
