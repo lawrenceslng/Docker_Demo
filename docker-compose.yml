@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  frontend:
+    image: frontend
+    build:
+      context: frontend
+      dockerfile: ./Dockerfile
+    ports:
+      - 3000:5173
+  backend:
+    image: backend
+    build:
+      context: backend
+      dockerfile: ./Dockerfile
+    ports:
+      - 8800:8800
+  db:
+    image: mysql:latest
+    # restart: always
+    command: --init-file /data/application/setup.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+      MYSQL_DATABASE: test
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./setup.sql:/data/application/setup.sql
+      - ./data:/var/lib/mysql
